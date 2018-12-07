@@ -9,14 +9,20 @@ namespace GeneticAlgorithm
     public class Chromosome
     {
         public List<int> Genes { get; set; }
-        public int Fitness()
+
+        public int Summ()
         {
             int res = 0;
-            foreach(var i in Genes)
+            foreach (var i in Genes)
             {
                 res += i;
             }
-            return Math.Abs(Data.Value - res);
+            return res;
+        }
+
+        public int Fitness()
+        {            
+            return Math.Abs(Data.Value - Summ());
         }
         public Chromosome RandomCrossWith(Chromosome Parent)
         {
@@ -51,11 +57,22 @@ namespace GeneticAlgorithm
         {
             Genes = new List<int>();
             Random rnd = new Random();
-            foreach (var g in Genes)
+            foreach (var g in genes)
             {
                 if (rnd.Next(0, 2) == 0)
                     Genes.Add(g);
             }
+        }
+
+        public override string ToString()
+        {
+            string res = "";
+            foreach(var g in Genes)
+            {
+                res += g.ToString() + ' ';
+            }
+            res += "Sum: " + Summ().ToString();
+            return res;
         }
     }
 }
