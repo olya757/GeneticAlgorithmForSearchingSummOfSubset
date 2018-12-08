@@ -8,16 +8,11 @@ namespace GeneticAlgorithm
 {
     public class Chromosome
     {
-        public List<int> Genes { get; set; }
+        public Genes Genes { get; set; }
 
         public int Summ()
         {
-            int res = 0;
-            foreach (var i in Genes)
-            {
-                res += i;
-            }
-            return res;
+            return Genes.Summ();
         }
 
         public int Fitness()
@@ -26,53 +21,20 @@ namespace GeneticAlgorithm
         }
         public Chromosome RandomCrossWith(Chromosome Parent)
         {
-            Chromosome Child = new Chromosome();
-            Random rnd = new Random();
-            foreach(var g in Genes)
-            {
-                if (rnd.Next(0, 2) == 0)
-                    Child.Genes.Add(g);
-            }
-            foreach (var g in Parent.Genes)
-            {
-                if (rnd.Next(0, 2) == 0)
-                    Child.Genes.Add(g);
-            }
+            Chromosome Child = new Chromosome(false);
+            Child.Genes=Genes.Merge(Parent.Genes);
             return Child;
         }
 
-        public Chromosome SmartCrossWith(Chromosome Parent)
-        {
-            Chromosome Child = new Chromosome();
-            //здесь будет что то умное
-            return Child;
-        }
 
-        public Chromosome()
+        public Chromosome(bool random)
         {
-            Genes = new List<int>();
+            Genes = new Genes(Data.Genes, random);
         }
-
-        public Chromosome(List<int> genes)
-        {
-            Genes = new List<int>();
-            Random rnd = new Random();
-            foreach (var g in genes)
-            {
-                if (rnd.Next(0, 2) == 0)
-                    Genes.Add(g);
-            }
-        }
-
         public override string ToString()
         {
-            string res = "";
-            foreach(var g in Genes)
-            {
-                res += g.ToString() + ' ';
-            }
-            res += "Sum: " + Summ().ToString();
-            return res;
+            return Genes.ToString();
+         
         }
     }
 }

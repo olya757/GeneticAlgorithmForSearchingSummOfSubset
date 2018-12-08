@@ -8,7 +8,7 @@ namespace GeneticAlgorithm
 {
     public static class Data
     {
-        private static List<int> Genes { get; set; }
+        public static List<int> Genes { get; set; }
         public static int Value { get; set; }
         public static List<KeyValuePair<int,Chromosome>> Chromosomes { get; private set; }
         public static int StartAmount { get; set; }
@@ -23,19 +23,13 @@ namespace GeneticAlgorithm
             FindResult = false;
             Genes.Sort();
             CreateFirstGeneration();
-            Chromosomes.Sort((p1, p2) =>
-            {
-                if (p1.Key > p2.Key) return 1;
-                if (p1.Key < p2.Key) return -1;
-                return 0;
-            });
-            
         }
+        public static Random Random = new Random();
         public static void CreateFirstGeneration()
         {
             for(int i = 0; i < StartAmount; i++)
             {
-                Chromosome chromosome = new Chromosome(Genes);
+                Chromosome chromosome = new Chromosome(true);
                 Chromosomes.Add(new KeyValuePair<int, Chromosome>(chromosome.Fitness(),chromosome));
             }
             ChooseGoodChromosomes();
