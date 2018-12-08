@@ -27,6 +27,11 @@ namespace GeneticAlgorithm
         }
 
 
+        public void Mutate()
+        {
+            Genes.Mutation();
+        }
+
         public Chromosome(bool random)
         {
             Genes = new Genes(Data.Genes, random);

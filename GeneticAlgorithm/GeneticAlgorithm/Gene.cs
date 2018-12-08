@@ -65,5 +65,14 @@ namespace GeneticAlgorithm
             res += "Sum: " + Summ().ToString();
             return res;
         }
+
+        public void Mutation()
+        {
+            for (int i=0;i<Data.Genes.Count();i++)
+            {
+                if (ListOfGenes[i].Value||Data.Random.Next(0, 2) == 0)
+                 SetGen(i);
+            }
+        }
     }
 }

@@ -12,10 +12,11 @@ namespace GeneticAlgorithm
         public static int Value { get; set; }
         public static List<KeyValuePair<int,Chromosome>> Chromosomes { get; private set; }
         public static int StartAmount { get; set; }
-
+        public static int ProbabilityOfMutation { get; set; }
         public static bool FindResult { get; set; }
-        public static void Init(List<int> genes,int value, int startAmount)
+        public static void Init(List<int> genes,int value, int startAmount, int VerOfMut)
         {
+            ProbabilityOfMutation = VerOfMut;
             Genes = genes;
             Value = value;
             Chromosomes = new List<KeyValuePair<int, Chromosome>>();
@@ -79,9 +80,21 @@ namespace GeneticAlgorithm
             Chromosomes = nextGeneration;
         }
 
+        public static void Mutate()
+        {
+            for (int i = 0; i < Chromosomes.Count();)
+            {
+                if (Random.Next(0, 100) < ProbabilityOfMutation)
+                {
+                    Chromosomes[i].Value.Mutate();
+                }
+            }
+        }
+
         public static bool NextStep()
         {
             MergeChromosomes();
+            Mutate();
             ChooseGoodChromosomes();
             return FindResult;
         }
