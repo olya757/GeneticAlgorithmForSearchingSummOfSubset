@@ -37,5 +37,7 @@ namespace GeneticAlgorithm
                 MessageBox.Show("Лучший результат найден!\r\n" + Data.Chromosomes.First().ToString());
             }
         }
+
+
     }
 }
