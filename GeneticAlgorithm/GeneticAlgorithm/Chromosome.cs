@@ -17,7 +17,7 @@ namespace GeneticAlgorithm
 
         public int Fitness()
         {            
-            return Math.Abs(Data.Value - Summ());
+            return Math.Abs(Genetic.Value - Summ());
         }
         public Chromosome RandomCrossWith(Chromosome Parent)
         {
@@ -26,15 +26,27 @@ namespace GeneticAlgorithm
             return Child;
         }
 
-
-        public void Mutate()
+        public int Count()
         {
-            Genes.Mutation();
+            return Genes.Count();
+        }
+
+        public Chromosome Mutate()
+        {
+            Chromosome chromosome = new Chromosome(false);
+            chromosome.Genes = Genes.Mutation();
+            return chromosome;
         }
 
         public Chromosome(bool random)
         {
-            Genes = new Genes(Data.Genes, random);
+            Genes = new Genes(Genetic.Genes, random);
+        }
+
+
+        public KeyValuePair<int,Chromosome> GetKeyValuePair()
+        {
+            return new KeyValuePair<int, Chromosome>(Fitness(), this);
         }
         public override string ToString()
         {

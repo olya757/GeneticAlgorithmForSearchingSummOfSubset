@@ -9,6 +9,18 @@ namespace GeneticAlgorithm
     public class Genes
     {
         public List<KeyValuePair<int,bool>> ListOfGenes { get; set; }
+
+        public int Count()
+        {
+            int res = 0;
+            foreach(var g in ListOfGenes)
+            {
+                if (g.Value)
+                    res++;
+            }
+            return res;
+        }
+
         public bool HaveGene(int index)
         {
             return ListOfGenes[index].Value;
@@ -16,7 +28,11 @@ namespace GeneticAlgorithm
 
         public void SetGen(int index)
         {
-            ListOfGenes[index] = new KeyValuePair<int,bool>(ListOfGenes[index].Key,true);
+            if (!ListOfGenes[index].Value)
+            {
+                ListOfGenes[index] = new KeyValuePair<int, bool>(ListOfGenes[index].Key, true);
+            }
+            
         }
         public int Summ()
         {
@@ -34,21 +50,21 @@ namespace GeneticAlgorithm
             ListOfGenes = new List<KeyValuePair<int, bool>>();
             foreach(var tmpG in g)
             {
-                ListOfGenes.Add(new KeyValuePair<int, bool>(tmpG, random && Data.Random.Next(0, 2) == 0));
+                ListOfGenes.Add(new KeyValuePair<int, bool>(tmpG, random && Genetic.Random.Next(0, 2) == 0));
             }
         }
 
         public Genes Merge(Genes Parent)
         {
-            Genes genesTmp = new Genes(Data.Genes,false);
+            Genes genesTmp = new Genes(Genetic.Genes,false);
             for (int i=0;i<ListOfGenes.Count();i++)
             {
-                if (ListOfGenes[i].Value && Data.Random.Next(0, 2) == 0)
+                if (ListOfGenes[i].Value && Genetic.Random.Next(0, 2) == 0)
                     genesTmp.SetGen(i);
             }
             for (int i=0; i < Parent.ListOfGenes.Count(); i++)
             {
-                if (Parent.ListOfGenes[i].Value && Data.Random.Next(0, 2) == 0)
+                if (Parent.ListOfGenes[i].Value && Genetic.Random.Next(0, 2) == 0)
                     genesTmp.SetGen(i);
             }
             return genesTmp;
@@ -66,13 +82,15 @@ namespace GeneticAlgorithm
             return res;
         }
 
-        public void Mutation()
+        public Genes Mutation()
         {
-            for (int i=0;i<Data.Genes.Count();i++)
+            Genes genes = new Genes(Genetic.Genes, false);
+            for (int i=0;i<Genetic.Genes.Count();i++)
             {
-                if (ListOfGenes[i].Value||Data.Random.Next(0, 2) == 0)
-                 SetGen(i);
+                if (ListOfGenes[i].Value||Genetic.Random.Next(0, 2) == 0)
+                 genes.SetGen(i);
             }
+            return genes;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GeneticAlgorithm
         public Form1()
         {
             InitializeComponent();
-            btnNext.Enabled = false;
+           
         }
 
         private void btnInput_Click(object sender, EventArgs e)
@@ -23,21 +23,23 @@ namespace GeneticAlgorithm
             List<string> Snums = tBGenes.Text.Split(' ').ToList<string>();
             List<int> nums = Snums.ConvertAll<int>((s)=>(int.Parse(s)));
             int Value = (int)nUDValue.Value;
-            Data.Init(nums, Value, 100);
-            tBChromosomes.Text = Data.ChromosomesToString();
-            btnNext.Enabled = true;
+            int AmountOfGenerations = (int)nUDAmountOfGenerations.Value;
+            int AmountOfFirst = (int)nUDAmountOfFirstGeneration.Value;
+            int ProbOfMutation = (int)nUDProb.Value;
+            int Top = (int)nUDTop.Value;
+            Genetic.NewGeneration(nums, Value, AmountOfFirst, ProbOfMutation, AmountOfGenerations, Top);
+            tBChromosomes.Text = Genetic.ChromosomesToString();
+           
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void label7_Click(object sender, EventArgs e)
         {
-            Data.NextStep();
-            tBChromosomes.Text = Data.ChromosomesToString();
-            if (Data.FindResult)
-            {
-                MessageBox.Show("Лучший результат найден!\r\n" + Data.Chromosomes.First().ToString());
-            }
+
         }
 
+        private void tBChromosomes_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }
