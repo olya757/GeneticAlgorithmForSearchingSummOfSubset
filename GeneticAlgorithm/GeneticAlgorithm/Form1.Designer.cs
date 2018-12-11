@@ -218,10 +218,10 @@
             this.nUDTop.Size = new System.Drawing.Size(120, 20);
             this.nUDTop.TabIndex = 13;
             this.nUDTop.Value = new decimal(new int[] {
-            7,
+            40,
             0,
             0,
-            65536});
+            0});
             // 
             // tBSearchResult
             // 

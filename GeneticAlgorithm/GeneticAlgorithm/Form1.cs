@@ -29,6 +29,8 @@ namespace GeneticAlgorithm
             int Top = (int)nUDTop.Value;
             Genetic.NewGeneration(nums, Value, AmountOfFirst, ProbOfMutation, AmountOfGenerations, Top);
             tBChromosomes.Text = Genetic.ChromosomesToString();
+
+            tBSearchResult.Text = Algorithm.Result(nums, Value);
            
         }
 
