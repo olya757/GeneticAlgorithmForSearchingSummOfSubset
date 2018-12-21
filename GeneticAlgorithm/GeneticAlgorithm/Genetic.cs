@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GeneticAlgorithm
 {
     public static class Genetic
     {
+        public static Thread thread { get; set; }
         public static List<int> Genes { get; set; }
         public static int Value { get; set; }
         public static int StartAmount { get; set; }
@@ -15,13 +17,16 @@ namespace GeneticAlgorithm
         public static int AmountOfGenerations { get; set; }
         public static int TopAmount { get; set; }
 
+        public static DateTime StartTime { get; set; }
+        public static TimeSpan TimeOfAlgorithm { get; set; }
 
         public static List<KeyValuePair<int,Chromosome>> Chromosomes { get; private set; }
-        
-        
+
+        public static event ChangeTextBoxAndLabel Change;
         //public static bool FindResult { get; set; }
         public static void NewGeneration(List<int> genes,int value, int startAmount, int VerOfMut,int aofGen,int Top)
         {
+            
             Genes = genes;
             Value = value;
             StartAmount = startAmount;
@@ -32,8 +37,12 @@ namespace GeneticAlgorithm
             
             Genes.Sort();
             CreateFirstGeneration();
-            FindResult();
+            thread = new Thread(FindResult);
+            thread.Start();
+
         }
+
+        
         public static Random Random = new Random();
         public static void CreateFirstGeneration()
         {
@@ -106,8 +115,12 @@ namespace GeneticAlgorithm
 
         public static void FindResult()
         {
+            DateTime st = System.DateTime.Now;
             for (int i = 1; i < AmountOfGenerations; i++)
                 NextStep();
+            TimeOfAlgorithm = System.DateTime.Now - st;
+            Change(ChromosomesToString(), TimeOfAlgorithm.Ticks.ToString());
+            Form1.Ready++;
         }
 
         public static string ChromosomesToString()

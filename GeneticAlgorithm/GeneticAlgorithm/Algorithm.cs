@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GeneticAlgorithm
 {
+    public delegate void ChangeTextBoxAndLabel(string tbText, string lbText);
+
     public static class Algorithm
     {
+        public static event ChangeTextBoxAndLabel Change;
+
         public static List<int> Genes { get; set; }
 
         public static int Value { get; set; }
@@ -59,9 +65,11 @@ namespace GeneticAlgorithm
             return res;
         }
 
-        public static List<int> FindResult()
-        {
+        public static TimeSpan TimeOfMethod { get; set; }
 
+        public static void FindResult()
+        {
+            DateTime start = System.DateTime.Now;
             List<int> bestResult = new List<int>();
             int minDif = -1;
             int minSize = Genes.Count();
@@ -79,7 +87,10 @@ namespace GeneticAlgorithm
                 }
             }
             while (nextState());
-            return bestResult;
+            resofmethod= bestResult;
+            TimeOfMethod = System.DateTime.Now - start;
+            Change(ToString(resofmethod), TimeOfMethod.Ticks.ToString());
+            Form1.Ready++;
         }
 
         public static string ToString(List<int> vs)
@@ -95,12 +106,21 @@ namespace GeneticAlgorithm
             return res;
         }
 
-        public static string Result(List<int> genes, int value)
+        public static List<int> resofmethod { get; set; }
+
+        private static Thread thread;
+
+        public static void Result(List<int> genes, int value)
         {
+            thread = new Thread(FindResult);
             Value = value;
-            Genes = genes;
+            Genes = new List<int>();
+            foreach(var g in genes)
+            {
+                Genes.Add(g);
+            }
             Genes.Sort();
-            return ToString(FindResult());
+            thread.Start();
         }
 
     }

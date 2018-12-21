@@ -45,6 +45,8 @@
             this.tBSearchResult = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.lbGen = new System.Windows.Forms.Label();
+            this.lbRight = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nUDValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUDAmountOfGenerations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUDProb)).BeginInit();
@@ -58,6 +60,7 @@
             this.tBGenes.Name = "tBGenes";
             this.tBGenes.Size = new System.Drawing.Size(362, 20);
             this.tBGenes.TabIndex = 0;
+            this.tBGenes.Text = "1 2 3 4 3 5 -2 3 4 5 2";
             // 
             // btnInput
             // 
@@ -75,7 +78,7 @@
             this.tBChromosomes.Multiline = true;
             this.tBChromosomes.Name = "tBChromosomes";
             this.tBChromosomes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tBChromosomes.Size = new System.Drawing.Size(191, 330);
+            this.tBChromosomes.Size = new System.Drawing.Size(191, 299);
             this.tBChromosomes.TabIndex = 2;
             this.tBChromosomes.TextChanged += new System.EventHandler(this.tBChromosomes_TextChanged);
             // 
@@ -229,7 +232,7 @@
             this.tBSearchResult.Multiline = true;
             this.tBSearchResult.Name = "tBSearchResult";
             this.tBSearchResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tBSearchResult.Size = new System.Drawing.Size(187, 330);
+            this.tBSearchResult.Size = new System.Drawing.Size(187, 299);
             this.tBSearchResult.TabIndex = 15;
             // 
             // label7
@@ -251,11 +254,29 @@
             this.label8.TabIndex = 18;
             this.label8.Text = "Генетический алгоритм";
             // 
+            // lbGen
+            // 
+            this.lbGen.AutoSize = true;
+            this.lbGen.Location = new System.Drawing.Point(436, 337);
+            this.lbGen.Name = "lbGen";
+            this.lbGen.Size = new System.Drawing.Size(0, 13);
+            this.lbGen.TabIndex = 19;
+            // 
+            // lbRight
+            // 
+            this.lbRight.AutoSize = true;
+            this.lbRight.Location = new System.Drawing.Point(666, 337);
+            this.lbRight.Name = "lbRight";
+            this.lbRight.Size = new System.Drawing.Size(0, 13);
+            this.lbRight.TabIndex = 20;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 382);
+            this.Controls.Add(this.lbRight);
+            this.Controls.Add(this.lbGen);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tBSearchResult);
@@ -304,6 +325,8 @@
         private System.Windows.Forms.TextBox tBSearchResult;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbGen;
+        private System.Windows.Forms.Label lbRight;
     }
 }
 

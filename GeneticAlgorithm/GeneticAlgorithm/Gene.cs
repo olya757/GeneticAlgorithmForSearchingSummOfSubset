@@ -47,6 +47,7 @@ namespace GeneticAlgorithm
 
         public Genes(List<int> g,bool random)
         {
+
             ListOfGenes = new List<KeyValuePair<int, bool>>();
             foreach(var tmpG in g)
             {
